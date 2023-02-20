@@ -1,8 +1,9 @@
 import ballerina/http;
-import ballerina/log;
 import ballerina/time;
 
 configurable string productApiUrl = ?;
+
+const string EXCHANGE_RATE_API_URL = "https://api.exchangerate.host";
 
 type PricingInfo record {
     string currencyCode;
@@ -26,7 +27,7 @@ service / on new http:Listener(9090) {
         });
 
         // Create client to call the exchange service
-        http:Client exchangeClient = check new("https://api.exchangerate.host");
+        http:Client exchangeClient = check new(EXCHANGE_RATE_API_URL);
 
 
         string fromCurrency = check productResponse.Product.PriceCurrency;
